@@ -1,27 +1,56 @@
+import { FontAwesome5 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { RootStackParamList } from "../components/stack-navigator";
 import { useUserContext } from "../context/user";
 
-export default function Action({ route, navigation }: any) {
+type newTrxScreenProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Actions"
+>;
+
+export default function Action({ route }: any) {
   const { type } = route.params;
   const [description, onDescription] = useState<string>("");
   const [value, onValue] = useState<string>("");
+
+  const navigation = useNavigation<newTrxScreenProp>();
 
   const { doTransaction } = useUserContext();
 
   function onSubmit() {
     console.log("transação feita");
-    navigation.goBack();
     doTransaction({
       description,
       value: Number(value),
       date: new Date(),
       type,
     });
+    navigation.goBack();
   }
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          top: 50,
+          left: 30,
+          position: "absolute",
+        }}
+      >
+        <Pressable onPress={() => navigation.goBack()}>
+          <FontAwesome5 name="arrow-left" size={32} color="#fff" />
+        </Pressable>
+      </View>
       <Text style={{ fontSize: 26, color: "#fff" }}>
         Nova {type === "in" ? "Entrada" : "Saída"}
       </Text>

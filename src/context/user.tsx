@@ -84,13 +84,15 @@ export default function UserProvider({ children }: any) {
   }
 
   function doTransaction(trx: Transaction) {
+    if (!user) return;
+
     const newUser = {
-      ...user!,
+      ...user,
       transactions: [
-        ...user!.transactions,
+        ...user.transactions,
         {
           ...trx,
-          id: user!.transactions.length,
+          id: user.transactions.length,
         },
       ],
     };

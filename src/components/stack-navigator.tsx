@@ -1,12 +1,20 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import Action from "../screens/Action";
-import Home from "../screens/Home";
-import Login from "../screens/Login";
-import Signup from "../screens/Signup";
+import Action from "../screens/new-transaction";
+import Home from "../screens/home";
+import Login from "../screens/login";
+import Signup from "../screens/signup";
+import { TransactionKind } from "../models/transaction";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+  Actions: { type: TransactionKind };
+  Signup: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Navigation() {
   return (
