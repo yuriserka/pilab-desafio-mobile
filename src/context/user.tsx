@@ -84,7 +84,7 @@ export default function UserProvider({ children }: any) {
   }
 
   function doTransaction(trx: Transaction) {
-    setUser({
+    const newUser = {
       ...user!,
       transactions: [
         ...user!.transactions,
@@ -93,7 +93,9 @@ export default function UserProvider({ children }: any) {
           id: user!.transactions.length,
         },
       ],
-    });
+    };
+    setUser(newUser);
+    setUsers(users.map((u) => (u.email === newUser.email ? newUser : u)));
   }
 
   function computeBalance() {
