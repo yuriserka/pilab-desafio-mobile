@@ -41,7 +41,11 @@ export default function Action({ route, navigation }: any) {
         placeholder="Descrição"
       />
       <View style={styles.btn}>
-        <Button title="Entrar" onPress={onSubmit} color="#A328D6" />
+        <Button
+          title={`Salvar ${type === "in" ? "Entrada" : "Saída"}`}
+          onPress={onSubmit}
+          color="#A328D6"
+        />
       </View>
     </View>
   );
